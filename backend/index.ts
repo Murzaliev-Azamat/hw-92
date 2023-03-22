@@ -23,6 +23,8 @@ app.use(router);
 const activeConnections: ActiveConnections = {};
 const baseUsers: IUser[] = [];
 
+console.log(123);
+
 router.ws("/chat", async (ws, req) => {
   const id = crypto.randomUUID();
   console.log("client connected! id=", id);
@@ -58,6 +60,7 @@ router.ws("/chat", async (ws, req) => {
         });
         break;
       case "SEND_MESSAGE":
+        console.log(decodedMessage.payload);
         Object.keys(activeConnections).forEach((connId) => {
           const conn = activeConnections[connId];
           conn.send(

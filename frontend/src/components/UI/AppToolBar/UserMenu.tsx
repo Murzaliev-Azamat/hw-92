@@ -36,7 +36,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           </Button>
         </Grid>
         <Grid item>
-          <Avatar alt="Avatar" src={user.image} />
+          <Avatar alt="Avatar" src={user.image ? user.image : ''} />
         </Grid>
       </Grid>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

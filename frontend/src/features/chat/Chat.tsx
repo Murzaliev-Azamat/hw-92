@@ -9,8 +9,6 @@ const Chat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [messageText, setMessageText] = useState('');
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  const [usernameText, setUsernameText] = useState('');
-  const [isLoggedIn, setLoggedIn] = useState(false);
 
   const ws = useRef<WebSocket | null>(null);
 
@@ -22,8 +20,10 @@ const Chat = () => {
     };
     ws.current.onmessage = (event) => {
       const decodedMessage = JSON.parse(event.data) as IncomingMessage;
+      console.log(decodedMessage);
 
       if (decodedMessage.type === 'NEW_MESSAGE') {
+        console.log(decodedMessage.payload);
         setMessages((messages) => [...messages, decodedMessage.payload]);
       }
     };
@@ -32,9 +32,11 @@ const Chat = () => {
       const decodedMessage = JSON.parse(event.data) as IncomingMessageForUsers;
 
       if (decodedMessage.type === 'NEW_USER') {
-        if (onlineUsers.indexOf(decodedMessage.payload) === -1) {
-          setOnlineUsers((onlineUsers) => [...onlineUsers, decodedMessage.payload]);
+        const existingUser = onlineUsers.find((user) => user._id === decodedMessage.payload._id);
+        if (existingUser) {
+          return;
         }
+        setOnlineUsers((onlineUsers) => [...onlineUsers, decodedMessage.payload]);
       }
     };
 
@@ -45,7 +47,6 @@ const Chat = () => {
     //     setOnlineUsers(onlineUsers.slice(-1, 1));
     //   }
     // };
-
     return () => {
       if (ws.current) {
         ws.current.close();
@@ -100,7 +101,7 @@ const Chat = () => {
       </div>
       {messages.map((message, idx) => (
         <div key={idx}>
-          <b>{message.username}: </b>
+          <b>фыв</b>
           {message.text}
         </div>
       ))}

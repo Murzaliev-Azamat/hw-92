@@ -1,5 +1,4 @@
 export interface ChatMessage {
-  username: string;
   text: string;
 }
 
@@ -7,9 +6,10 @@ export interface User {
   _id: string;
   username: string;
   displayName: string;
-  image?: string;
+  image?: string | null;
   token: string;
   role: string;
+  __v: number;
 }
 
 export interface IncomingMessage {
