@@ -11,5 +11,20 @@ export interface BasePixels {
 
 export interface IncomingMessage {
   type: string;
-  payload: BasePixels;
+  payload: string;
 }
+
+export interface IUser {
+  username: string;
+  password: string;
+  token: string;
+  role: string;
+  displayName: string;
+  googleId?: string;
+  image?: string;
+}
+
+// export interface IncomingMessage {
+//   type: string;
+//   payload: BasePixels;
+// }
