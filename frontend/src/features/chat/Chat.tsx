@@ -67,27 +67,8 @@ const Chat = () => {
     }
   }, [user]);
 
-  const changeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsernameText(e.target.value);
-  };
-
   const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessageText(e.target.value);
-  };
-
-  const setUsername = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!ws.current) return;
-
-    ws.current.send(
-      JSON.stringify({
-        type: 'SET_USERNAME',
-        payload: usernameText,
-      }),
-    );
-
-    setLoggedIn(true);
   };
 
   const sendMessage = (e: React.FormEvent) => {
@@ -102,31 +83,6 @@ const Chat = () => {
       }),
     );
   };
-
-  // let chat = (
-  //   <div>
-  //     {messages.map((message, idx) => (
-  //       <div key={idx}>
-  //         <b>{message.username}: </b>
-  //         {message.text}
-  //       </div>
-  //     ))}
-  //
-  //     <form onSubmit={sendMessage}>
-  //       <input type="text" name="messageText" value={messageText} onChange={changeMessage} />
-  //       <input type="submit" value="Send" />
-  //     </form>
-  //   </div>
-  // );
-  //
-  // if (!isLoggedIn) {
-  //   chat = (
-  //     <form onSubmit={setUsername}>
-  //       <input type="text" name="username" value={usernameText} onChange={changeUsername} />
-  //       <input type="submit" value="Enter Chat" />
-  //     </form>
-  //   );
-  // }
 
   return (
     <Container maxWidth="md" sx={{ mt: 2 }}>

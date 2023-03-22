@@ -1,9 +1,8 @@
 import cors from "cors";
 import express from "express";
 import expressWs from "express-ws";
-import { ActiveConnections, BasePixels, IncomingMessage, IUser } from "./types";
+import { ActiveConnections, IncomingMessage, IUser } from "./types";
 import * as crypto from "crypto";
-// import chatRouter from "./routers/chat";
 import usersRouter from "./routers/users";
 import mongoose from "mongoose";
 import config from "./config";
@@ -16,7 +15,6 @@ const port = 8000;
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
-// app.use("/chat", chatRouter);
 app.use("/users", usersRouter);
 
 const router = express.Router();
@@ -30,7 +28,6 @@ router.ws("/chat", async (ws, req) => {
   console.log("client connected! id=", id);
   activeConnections[id] = ws;
   let user: IUser | null = null;
-  const username = "Anonymous";
 
   for (const baseUser of baseUsers) {
     ws.send(
@@ -60,9 +57,6 @@ router.ws("/chat", async (ws, req) => {
           );
         });
         break;
-      // case "SET_USERNAME":
-      //   username = decodedMessage.payload;
-      //   break;
       case "SEND_MESSAGE":
         Object.keys(activeConnections).forEach((connId) => {
           const conn = activeConnections[connId];
@@ -70,7 +64,6 @@ router.ws("/chat", async (ws, req) => {
             JSON.stringify({
               type: "NEW_MESSAGE",
               payload: {
-                username,
                 text: decodedMessage.payload,
               },
             })

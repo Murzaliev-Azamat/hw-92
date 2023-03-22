@@ -1,18 +1,3 @@
-// export interface CanvasPixels {
-//   x: string;
-//   y: string;
-// }
-//
-// export interface IncomingMessage {
-//   type: string;
-//   payload: CanvasPixels;
-// }
-//
-// export interface PixelsApi {
-//   x: string;
-//   y: string;
-// }
-
 export interface ChatMessage {
   username: string;
   text: string;
@@ -69,4 +54,3 @@ export interface LoginMutation {
 export interface GlobalError {
   error: string;
 }
-
